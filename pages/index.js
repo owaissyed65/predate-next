@@ -1,28 +1,13 @@
 import Head from 'next/head'
 import styles from '/styles/Home.module.css'
 import Blog from '@/components/Blog'
+import useFetch from '@/hook/useFetch'
 
 
 
 export default function Home() {
-  const value = [
-    {
-      title: 'How to learn Javascript',
-      desc: 'Javascript is the way to design and build frontend logics to the client which can be seen interactive'
-    },
-    {
-      title: 'How to learn Javascript',
-      desc: 'Javascript is the way to design and build frontend logics to the client which can be seen interactive'
-    },
-    {
-      title: 'How to learn Javascript',
-      desc: 'Javascript is the way to design and build frontend logics to the client which can be seen interactive'
-    },
-    {
-      title: 'How to learn Javascript',
-      desc: 'Javascript is the way to design and build frontend logics to the client which can be seen interactive'
-    }
-  ]
+  const { blog } = useFetch('http://localhost:3000/api/allblog')
+
   return (
     <>
       <Head>
@@ -31,14 +16,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/" />
       </Head>
-      <style jsx>
-        {`
-          // .span{
-          //   color: red;
-          // }
-        `}
-      </style>
-      <main className={`${styles.container}`}>
+      <main className={`${styles.container} ${styles.marbot}`}>
         <div className={styles.blogContainer}>
           <h1>Blogs for Code Predators</h1>
           <p>A Blog for code Predator who predates a code</p>
@@ -48,8 +26,8 @@ export default function Home() {
           <div className={styles.blogs}>
             <h1 style={{ fontSize: '2.2rem' }}>Popular Blogs</h1>
             {
-              value.map((curEle, index) => {
-                return <Blog curEle={curEle} index={index}  key={index}/>
+              blog?.map((curEle) => {
+                return <Blog curEle={curEle} key={curEle?.slug} />
               })
             }
           </div>
