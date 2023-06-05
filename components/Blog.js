@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '/styles/Home.module.css'
 import Link from 'next/link'
+
 const Blog = ({ curEle }) => {
   return (
     <>
@@ -11,7 +12,7 @@ const Blog = ({ curEle }) => {
         }
       `}
       </style>
-      <Link href={`/blogposts/${curEle?.slug}`}>
+      <Link href={`/blogposts/${curEle?.slug}.json`}>
         <div className={styles?.blogitem} >
           {/* <span className='span'>i m span</span> */}
           <h1>{curEle?.Title}</h1>

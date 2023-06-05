@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   devIndicators: {
     buildActivity: false
-}
+  },
+  trailingSlash: true
 }
 
 module.exports = nextConfig

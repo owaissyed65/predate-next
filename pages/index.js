@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import styles from '/styles/Home.module.css'
 import Blog from '@/components/Blog'
-import useFetch from '@/hook/useFetch'
+import * as fs from 'fs'
+
+// import useFetch from '@/hook/useFetch'
 
 
 
-export default function Home() {
-  const { blog } = useFetch('http://localhost:3000/api/allblog')
-
+export default function Home({ blog }) {
   return (
     <>
       <Head>
@@ -35,4 +35,16 @@ export default function Home() {
       </main>
     </>
   )
+}
+export async function getStaticProps() {
+  let blog = []
+  let fileName = await fs.promises.readdir('blogdata', 'utf-8');
+  for (let index = 0; index < fileName.length; index++) {
+    const element = fileName[index];
+    let newData = await fs.promises.readFile(`blogdata/${element}`, 'utf-8')
+    blog.push(JSON.parse(newData))
+  }
+  return {
+    props: { blog }
+  }
 }
